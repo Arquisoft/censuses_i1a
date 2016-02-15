@@ -1,0 +1,14 @@
+package es.uniovi.asw.parser;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class ExcelParserTest {
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}

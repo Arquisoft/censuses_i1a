@@ -1,33 +1,38 @@
-package es.uniovi.asw.main;
+package es.uniovi.asw.parser;
 
 import org.apache.commons.cli.*;
 
 /**
- * A test of how to read from CMD
+ * Provisional way to read from CMD
  * @author UO238739
  *
  */
-public class ArgumentsParser {
+public class ArgumentsParser implements ReadCensus {
 
+	private static final String FORMAT = ".xlsx";
+	private static final String FILEOPTION = "file";
 	private CommandLineParser parser = new DefaultParser();
 	private Options options = new Options();
 	private String[] args;
+	private String file;
 	private StringBuilder error = new StringBuilder();
 
 	public ArgumentsParser(String[] args) {
-		options.addOption("file", true, "File to be processed");
+		options.addOption(FILEOPTION, true, "File to be processed");
 		this.args = args;
 	}
 
-	public void process() {
+	private void processArguments() {
 		String file;
 		CommandLine line;
 		try {
 			line = parser.parse(options, args);
-			if( line.hasOption( "file" ) ) {
-				file = line.getOptionValue("file");
-				if(!file.endsWith(".xlsx")){
-					error.append("The format is not .\"xlsx\n");
+			if( line.hasOption(FILEOPTION) ) {
+				file = line.getOptionValue(FILEOPTION);
+				if(!file.endsWith(FORMAT)){
+					error.append("The format is not " + FORMAT + "\n");
+				} else {
+					this.file = file;
 				}
 			} else {
 				error.append("The argument is missing\n");
@@ -44,5 +49,11 @@ public class ArgumentsParser {
 		}
 		return error.toString();
 	}
-	
+
+	@Override
+	public void read() {
+		processArguments();
+		CensusParser reader = new ExcelParser();
+		reader.read(file);
+	}
 }

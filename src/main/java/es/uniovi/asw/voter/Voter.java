@@ -1,4 +1,4 @@
-package es.uniovi.asw.user;
+package es.uniovi.asw.voter;
 
 /**
  * Class made to serve as object container to transport data from the parser to the database
@@ -6,7 +6,7 @@ package es.uniovi.asw.user;
  *
  */
 
-public class User {
+public class Voter {
 
 	private String name;
 	private String nif;
@@ -14,7 +14,7 @@ public class User {
 	private String email;
 	private String password;
 	
-	public User(String name, String nif, int pollingStation, String email) {
+	public Voter(String name, String nif, int pollingStation, String email) {
 		super();
 		this.name = name;
 		this.nif = nif;
@@ -22,7 +22,7 @@ public class User {
 		this.email = email;
 	}
 	
-	public User(String name, String nif, int pollingStation, String email, String password) {
+	public Voter(String name, String nif, int pollingStation, String email, String password) {
 		this(name, nif, pollingStation, email);
 		this.password = password;
 	}
