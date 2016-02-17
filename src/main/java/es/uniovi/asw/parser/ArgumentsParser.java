@@ -43,6 +43,9 @@ public class ArgumentsParser implements ReadCensus {
 		}
 	}
 
+	/**
+	 * Provisional
+	 */
 	public String getErrors(){
 		if(error.length()==0){
 			error.append("No errors (*≧▽≦)");
@@ -53,7 +56,7 @@ public class ArgumentsParser implements ReadCensus {
 	@Override
 	public void read() {
 		processArguments();
-		CensusParser reader = new ExcelParser();
-		reader.read(file);
+		CensusParser parser = new CensusParser();
+		parser.process(file);
 	}
 }
