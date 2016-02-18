@@ -40,10 +40,10 @@ public class ExcelReader implements FileReader {
 		String email = null;
 		Integer station = null;
 		
-		FileInputStream input = new FileInputStream(new File("C:\\test.xlsx"));
+		FileInputStream input = new FileInputStream(new File(file));
 
 		@SuppressWarnings("resource")
-		Workbook workbook = new XSSFWorkbook(file);
+		Workbook workbook = new XSSFWorkbook(input);
 		Sheet sheet = workbook.getSheetAt(0);
 		CellReference header;
 		for (Row row : sheet) {

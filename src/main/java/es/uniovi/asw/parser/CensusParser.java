@@ -31,6 +31,10 @@ public class CensusParser {
 		this(new ExcelReader(), new TxtLetter());
 	}
 
+	public CensusParser(FileReader reader) {
+		this(reader, new TxtLetter());
+	}
+
 	public void process(String file) {
 		List<Voter> voters;
 

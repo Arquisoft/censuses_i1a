@@ -10,7 +10,7 @@ public class Voter {
 
 	private String name;
 	private String nif;
-	private int pollingStation;
+	private Integer pollingStation;
 	private String email;
 	private String password;
 	
@@ -39,7 +39,7 @@ public class Voter {
 	public String getNif() {
 		return nif;
 	}
-	public int getPollingStation() {
+	public Integer getPollingStation() {
 		return pollingStation;
 	}
 	public String getEmail() {
@@ -50,5 +50,31 @@ public class Voter {
 	public String toString() {
 		return "User [name=" + name + ", nif=" + nif + ", pollingStation=" + pollingStation + ", email=" + email + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nif == null) ? 0 : nif.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Voter other = (Voter) obj;
+		if (nif == null) {
+			if (other.nif != null)
+				return false;
+		} else if (!nif.equals(other.nif))
+			return false;
+		return true;
+	}
+
 	
 }
