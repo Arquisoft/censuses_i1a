@@ -51,6 +51,7 @@ public class CensusParser {
 				letterGenerator.generateLetter(voter);
 			}
 		} catch (Exception e) {
+			//TODO exception handling
 			System.err.println("Exception handling not yet implemented");
 		}
 	}
