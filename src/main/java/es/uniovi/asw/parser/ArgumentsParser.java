@@ -13,21 +13,19 @@ import es.uniovi.asw.parser.reader.*;
  */
 public class ArgumentsParser implements ReadCensus {
 
-	private static final String EXCEL_FORMAT = ".xlsx";
-	private static final String EXCEL_OPTION = "excel";
+	public static final String EXCEL_FORMAT = ".xlsx";
+	public static final String EXCEL_OPTION = "excel";
 	private CommandLineParser parser = new DefaultParser();
 	private Options options = new Options();
-	private String[] args;
 	private String file;
 	private StringBuilder error = new StringBuilder(); //provisional
 	private FileReader reader;
 
-	public ArgumentsParser(String[] args) {
+	public ArgumentsParser() {
 		options.addOption(EXCEL_OPTION, true, "Excel file to be processed");
-		this.args = args;
 	}
 
-	private void processArguments() {
+	void processArguments(String[] args) {
 		String file;
 		CommandLine line;
 		try {
@@ -60,9 +58,17 @@ public class ArgumentsParser implements ReadCensus {
 	}
 
 	@Override
-	public void read() {
-		processArguments();
+	public void read(String[] args) {
+		processArguments(args);
 		CensusParser parser = new CensusParser(reader);
 		parser.process(file);
+	}
+
+	String getFile() {
+		return file;
+	}
+
+	FileReader getReader() {
+		return reader;
 	}
 }

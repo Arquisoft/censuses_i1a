@@ -3,6 +3,7 @@ package es.uniovi.asw.dbupdate;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 import es.uniovi.asw.reportwriter.WriteReport;
 import es.uniovi.asw.voter.Voter;
@@ -21,6 +22,10 @@ public class InsertP implements Insert {
 		this.report = report;
 	}
 	
+	public InsertP() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public boolean validateVoter(Voter voter) {
 		if (!voter.getName().isEmpty() && !voter.getNif().isEmpty()
 				&& !voter.getEmail().isEmpty() && !voter.getPassword().isEmpty()
@@ -64,6 +69,13 @@ public class InsertP implements Insert {
 			//report.setLog("Error introducing the voter " + voter.getName() + "; NIF: " + voter.getNif());
 		}
 		
+	}
+
+	@Override
+	public void insert(List<Voter> voters) {
+		for(Voter voter : voters){
+			insert(voter);
+		}
 	}
 
 }

@@ -1,5 +1,7 @@
 package es.uniovi.asw.dbupdate;
 
+import java.util.List;
+
 import es.uniovi.asw.voter.Voter;
 /**
  * Receives and object with the information to insert in the database
@@ -9,5 +11,7 @@ import es.uniovi.asw.voter.Voter;
 public interface Insert {
 	
 	public void insert(Voter voter);
+
+	public void insert(List<Voter> voters);
 	
 }

@@ -2,6 +2,8 @@ package es.uniovi.asw.parser;
 
 import java.util.List;
 
+import es.uniovi.asw.dbupdate.Insert;
+import es.uniovi.asw.dbupdate.InsertP;
 import es.uniovi.asw.parser.letters.LetterGenerator;
 import es.uniovi.asw.parser.letters.TxtLetter;
 import es.uniovi.asw.parser.reader.ExcelReader;
@@ -47,8 +49,9 @@ public class CensusParser {
 				voter.setPassword(PasswordGenerator.generateRandomPassword());
 			}
 
-			// TODO insert in the DB
-			// ....
+			// upload voters to the DB
+			Insert updateDb = new InsertP();
+			updateDb.insert(voters);
 
 			// create letters
 			for (Voter voter : voters) {
@@ -59,4 +62,5 @@ public class CensusParser {
 			System.err.println("Exception handling not yet implemented");
 		}
 	}
+	
 }

@@ -47,7 +47,6 @@ public class ExcelReader implements FileReader {
 		Sheet sheet = workbook.getSheetAt(0);
 		CellReference header;
 		for (Row row : sheet) {
-			
 			if (row.getRowNum() != FIRST_ROW) {
 				for (Cell cell : row) {
 
