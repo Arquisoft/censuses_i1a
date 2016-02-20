@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import es.uniovi.asw.voter.Voter;
@@ -39,27 +38,36 @@ public class ExcelReader implements FileReader {
 		String nif = null;
 		String email = null;
 		Integer station = null;
-		
+
 		FileInputStream input = new FileInputStream(new File(file));
 
 		@SuppressWarnings("resource")
 		Workbook workbook = new XSSFWorkbook(input);
 		Sheet sheet = workbook.getSheetAt(0);
-		CellReference header;
+		Row firstRow = sheet.getRow(FIRST_ROW);
+		Cell header;
+		Cell cell;
 		for (Row row : sheet) {
-			if (row.getRowNum() != FIRST_ROW) {
-				for (Cell cell : row) {
-
-					// get the type of column data (nif, name, ...)
-					header = new CellReference(FIRST_ROW, cell.getColumnIndex());
-					if (header.formatAsString().equalsIgnoreCase(NAME)) {
-						name = cell.getStringCellValue();
-					} else if (header.formatAsString().equalsIgnoreCase(NIF)) {
-						nif = cell.getStringCellValue();
-					} else if (header.formatAsString().equalsIgnoreCase(EMAIL)) {
-						email = cell.getStringCellValue();
-					} else if (header.formatAsString().equalsIgnoreCase(STATION)) {
-						station = (int) cell.getNumericCellValue();
+			if (row.getRowNum() == FIRST_ROW) { 
+				checkFirstRow(row);
+			} else {
+				for (int column = 0; column < row.getLastCellNum(); column++) {
+					cell = row.getCell(column, Row.RETURN_BLANK_AS_NULL);
+					
+					//if cell is null then then it is not checked
+					if (cell != null) { 
+						
+						// get the type of column data (nif, name, ...)
+						header = firstRow.getCell(column);
+						if (header.getStringCellValue().equalsIgnoreCase(NAME)) {
+							name = cell.getStringCellValue();
+						} else if (header.getStringCellValue().equalsIgnoreCase(NIF)) {
+							nif = cell.getStringCellValue();
+						} else if (header.getStringCellValue().equalsIgnoreCase(EMAIL)) {
+							email = cell.getStringCellValue();
+						} else if (header.getStringCellValue().equalsIgnoreCase(STATION)) {
+							station = (int) cell.getNumericCellValue();
+						}
 					}
 				}
 				voters.add(new Voter(name, nif, station, email));
@@ -68,6 +76,15 @@ public class ExcelReader implements FileReader {
 
 		input.close(); // close resources before finishing
 		return voters;
+	}
+
+	/**
+	 * Checks if the format of the first row is correct
+	 */
+	private void checkFirstRow(Row row) {
+		for(Cell cell : row){
+			// TODO
+		}
 	}
 
 }

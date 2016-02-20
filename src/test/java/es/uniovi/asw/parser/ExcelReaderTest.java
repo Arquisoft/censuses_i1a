@@ -21,18 +21,26 @@ public class ExcelReaderTest {
 		List<Voter> expectedVoters = getVotersList();
 		
 		votersFromFile = reader.read("src/test/resources/test.xlsx");
-		for(Voter expectedVoter : expectedVoters){
-			for(Voter voterFromFile : votersFromFile){
-			assertTrue(checkSameVoter(voterFromFile, expectedVoter));
-			}
+		for(Voter voterFromFile : votersFromFile){
+			assertTrue(containsVoter(expectedVoters, voterFromFile));
 		}
 	}
 	
-	private boolean checkSameVoter(Voter voterFromFile, Voter expectedVoter) {
-		return voterFromFile.getEmail().equals(expectedVoter.getEmail()) &&
-				voterFromFile.getName().equals(expectedVoter.getName()) &&
-				voterFromFile.getNif().equals(expectedVoter.getNif()) &&
-				voterFromFile.getPollingStation().equals(expectedVoter.getPollingStation());
+	private boolean containsVoter(List<Voter> expectedVoters, Voter voterFromFile) {
+		boolean result = false;
+		for(Voter expectedVoter : expectedVoters){
+			if(checkSameVoter(voterFromFile, expectedVoter)){
+				result = true;
+			}
+		}
+		return result;
+	}
+
+	private boolean checkSameVoter(Voter voter1, Voter voter2) {
+		return voter1.getEmail().equals(voter2.getEmail()) &&
+				voter1.getName().equals(voter2.getName()) &&
+				voter1.getNif().equals(voter2.getNif()) &&
+				voter1.getPollingStation().equals(voter2.getPollingStation());
 	}
 
 	private List<Voter> getVotersList(){

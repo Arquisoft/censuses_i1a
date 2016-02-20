@@ -18,17 +18,15 @@ public class ArgumentsParser implements ReadCensus {
 	private CommandLineParser parser = new DefaultParser();
 	private Options options = new Options();
 	private String file;
-	private StringBuilder error = new StringBuilder(); //provisional
 	private FileReader reader;
 
 	public ArgumentsParser() {
 		options.addOption(EXCEL_OPTION, true, "Excel file to be processed");
 	}
 
-	void processArguments(String[] args) {
+	void processArguments(String[] args) throws ParseException {
 		String file;
 		CommandLine line;
-		try {
 			line = parser.parse(options, args);
 			if( line.hasOption(EXCEL_OPTION) ) {
 				file = line.getOptionValue(EXCEL_OPTION);
@@ -36,32 +34,20 @@ public class ArgumentsParser implements ReadCensus {
 					this.file = file;
 					this.reader = new ExcelReader();
 				} else {
-					error.append("The format is not " + EXCEL_FORMAT + "\n");
+					throw new IllegalArgumentException("The format is not " + EXCEL_FORMAT + "\n");
 				}
-			} else {
-				error.append("The argument is missing\n");
 			}
-		} catch (ParseException exp) {
-			System.err.println( "Error: " + exp.getMessage() );
-			error.append(exp.getMessage()); error.append("\n");
-		}
-	}
-
-	/**
-	 * Provisional
-	 */
-	public String getErrors(){
-		if(error.length()==0){
-			error.append("No errors (*≧▽≦)");
-		}
-		return error.toString();
 	}
 
 	@Override
 	public void read(String[] args) {
-		processArguments(args);
-		CensusParser parser = new CensusParser(reader);
-		parser.process(file);
+		try {
+			processArguments(args);
+			CensusParser parser = new CensusParser(reader);
+			parser.process(file);
+		} catch (ParseException | IllegalArgumentException exp) {
+			System.err.println( "ERROR: " + exp.getMessage() );
+		}
 	}
 
 	String getFile() {
