@@ -25,8 +25,24 @@ public class CensusParser {
 	private LetterGenerator letterGenerator;
 
 	public CensusParser(FileReader reader, LetterGenerator letterGenerator) {
-		this.reader = reader;
-		this.letterGenerator = letterGenerator;
+		defaultReaderInitializar(reader);
+		defaultLetterGeneratorInitializar(letterGenerator);
+	}
+
+	private void defaultLetterGeneratorInitializar(LetterGenerator letterGenerator) {
+		if (letterGenerator == null){
+			this.letterGenerator = new TxtLetter();
+		} else {
+			this.letterGenerator = letterGenerator;
+		}
+	}
+
+	private void defaultReaderInitializar(FileReader reader) {
+		if(reader == null) {
+			this.reader = new ExcelReader();
+		} else {
+			this.reader = reader;
+		}
 	}
 
 	public CensusParser() {

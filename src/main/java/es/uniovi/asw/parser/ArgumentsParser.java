@@ -2,6 +2,9 @@ package es.uniovi.asw.parser;
 
 import org.apache.commons.cli.*;
 
+import es.uniovi.asw.parser.letters.LetterGenerator;
+import es.uniovi.asw.parser.letters.PDFLetter;
+import es.uniovi.asw.parser.letters.TxtLetter;
 import es.uniovi.asw.parser.reader.*;
 
 /**
@@ -13,15 +16,26 @@ import es.uniovi.asw.parser.reader.*;
  */
 public class ArgumentsParser implements ReadCensus {
 
-	public static final String EXCEL_FORMAT = ".xlsx";
+	public static final String TXT_OPTION = "txt";
+	public static final String PDF_OPTION = "pdf";
 	public static final String EXCEL_OPTION = "excel";
+	public static final String EXCEL_FORMAT = ".xlsx";
 	private CommandLineParser parser = new DefaultParser();
 	private Options options = new Options();
 	private String file;
 	private FileReader reader;
+	private LetterGenerator letter;
 
 	public ArgumentsParser() {
-		options.addOption(EXCEL_OPTION, true, "Excel file to be processed");
+		OptionGroup outputOptions = new OptionGroup();
+		outputOptions.addOption(new Option(PDF_OPTION, false, "Sets the letter output to PDF"));
+		outputOptions.addOption(new Option(TXT_OPTION, false, "Sets the letter output to TXT"));
+		
+		Option excelOption = new Option(EXCEL_OPTION, true, "Excel file to be processed");
+		excelOption.setRequired(true);
+		options.addOption(excelOption);
+		options.addOptionGroup(outputOptions);
+		
 	}
 
 	void processArguments(String[] args) throws ParseException {
@@ -36,6 +50,11 @@ public class ArgumentsParser implements ReadCensus {
 				} else {
 					throw new IllegalArgumentException("The format is not " + EXCEL_FORMAT + "\n");
 				}
+			} if( line.hasOption(PDF_OPTION) ) {
+				this.letter = new PDFLetter();
+				
+			} if ( line.hasOption(TXT_OPTION) ) {
+				this.letter = new TxtLetter();
 			}
 	}
 
@@ -43,7 +62,7 @@ public class ArgumentsParser implements ReadCensus {
 	public void read(String[] args) {
 		try {
 			processArguments(args);
-			CensusParser parser = new CensusParser(reader);
+			CensusParser parser = new CensusParser(reader, letter);
 			parser.process(file);
 		} catch (ParseException | IllegalArgumentException exp) {
 			System.err.println( "ERROR: " + exp.getMessage() );
@@ -56,5 +75,9 @@ public class ArgumentsParser implements ReadCensus {
 
 	FileReader getReader() {
 		return reader;
+	}
+
+	LetterGenerator getLetter() {
+		return letter;
 	}
 }
