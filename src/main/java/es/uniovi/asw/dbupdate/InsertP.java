@@ -70,12 +70,17 @@ public class InsertP implements Insert {
 		}
 		
 	}
+	
+	public  ArrayList<Voter> getVoters(){
+ 		return voters;
+ 	}
 
 	@Override
 	public void insert(List<Voter> voters) {
-		for(Voter voter : voters){
-			insert(voter);
-		}
+		for (Voter voter : voters) {
+						if(repository.findByNif(voter.getNif())==null){ 
+							repository.save(voter);
+						}
 	}
 
 }

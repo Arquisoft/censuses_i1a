@@ -10,6 +10,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import es.uniovi.asw.voter.Voter;
+import es.uniovi.asw.dbupdate.VoterCheck;
 
 /**
  * Class that reads from an excel file to pass the data to a database

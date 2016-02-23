@@ -1,7 +1,7 @@
 package es.uniovi.asw.parser;
 
 import java.util.List;
-
+import es.uniovi.asw.dbupdate.VoterCheck;
 import es.uniovi.asw.dbupdate.Insert;
 import es.uniovi.asw.dbupdate.InsertP;
 import es.uniovi.asw.parser.letters.LetterGenerator;
