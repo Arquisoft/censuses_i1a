@@ -1,17 +1,31 @@
 package es.uniovi.asw.voter;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 /**
  * Class made to serve as object container to transport data from the parser to the database
  * @author UO238739
  *
  */
-
+@Entity
 public class Voter {
 
-	private String name;
+	@Id
+	@GeneratedValue
 	private String nif;
+	
+	@Column(nullable = false)
+	private String name;
+	
+	Column(nullable = false)
 	private Integer pollingStation;
+	
+	Column
 	private String email;
+	
+	Column
 	private String password;
 	
 	public Voter(String name, String nif, int pollingStation, String email) {
