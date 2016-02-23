@@ -1,4 +1,4 @@
-package es.uniovi.asw;
+package es.uniovi.asw.dbupdate;
 
 import static org.junit.Assert.*;
 
@@ -14,6 +14,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import es.uniovi.asw.dbupdate.VoterCheck;
+import es.uniovi.asw.main.LoadUsers;
 import es.uniovi.asw.voter.Voter;
 
 

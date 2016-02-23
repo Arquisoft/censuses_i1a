@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import es.uniovi.asw.voter.Voter;
 
-public interface VoterRepository extends CrudRepository<Voter, Long>{
+public interface VoterCheck extends CrudRepository<Voter, Long>{
 	
 	/**
 	 * Find X voter by NIF

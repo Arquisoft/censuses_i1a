@@ -10,7 +10,6 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import es.uniovi.asw.voter.Voter;
-import es.uniovi.asw.dbupdate.VoterCheck;
 
 /**
  * Class that reads from an excel file to pass the data to a database
@@ -55,7 +54,7 @@ public class ExcelReader implements FileReader {
 				for (int column = 0; column < row.getLastCellNum(); column++) {
 					cell = row.getCell(column, Row.RETURN_BLANK_AS_NULL);
 					
-					//if cell is null then then it is not checked
+					//if cell is null then it is not checked
 					if (cell != null) { 
 						
 						// get the type of column data (nif, name, ...)
@@ -76,6 +75,9 @@ public class ExcelReader implements FileReader {
 		}
 
 		input.close(); // close resources before finishing
+		
+		//TODO check for cast errors
+		
 		return voters;
 	}
 
@@ -83,9 +85,35 @@ public class ExcelReader implements FileReader {
 	 * Checks if the format of the first row is correct
 	 */
 	private void checkFirstRow(Row row) {
+		
+		/*If some of the fields exists in the sheet it is marked as true
+		 * Each field is assigned to a position in the array
+		 */
+		boolean[] fieldPresent= {false, false, false, false}; 
 		for(Cell cell : row){
-			// TODO
+			if(cell.getStringCellValue().equalsIgnoreCase(NAME)){
+				fieldPresent[0] = true;
+			} else if (cell.getStringCellValue().equalsIgnoreCase(EMAIL)){
+				fieldPresent[1] = true;
+			} else if (cell.getStringCellValue().equalsIgnoreCase(NIF)){
+				fieldPresent[2] = true;
+			} else if (cell.getStringCellValue().equalsIgnoreCase(STATION)){
+				fieldPresent[3] = true;
+			}
 		}
+		if(!allElementsTrue(fieldPresent)){
+			// TODO error
+		}
+		
+	} 
+	
+	private boolean allElementsTrue(boolean[] array){
+		for(boolean value: array){
+			if(value == false){
+				return false;
+			}
+		}
+		return true;
+		
 	}
-
 }

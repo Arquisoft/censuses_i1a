@@ -71,7 +71,7 @@ public class InsertP implements Insert {
 		
 	}
 	
-	public  ArrayList<Voter> getVoters(){
+	public List<Voter> getVoters(){
  		return voters;
  	}
 
