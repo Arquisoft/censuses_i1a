@@ -1,16 +1,22 @@
 package es.uniovi.asw.voter;
 
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import es.uniovi.asw.dbupdate.VoterCheck;
 /**
  * Class made to serve as object container to transport data from the parser to the database
  * @author UO238739
  *
  */
 @Entity
-public class Voter {
+public class Voter  {
+	
+	private VoterCheck check;
 
 	@Id
 	@GeneratedValue
@@ -18,14 +24,11 @@ public class Voter {
 	
 	@Column(nullable = false)
 	private String name;
-	
-	Column(nullable = false)
+	@Column
 	private Integer pollingStation;
-	
-	Column
+	@Column
 	private String email;
-	
-	Column
+	@Column
 	private String password;
 	
 	public Voter(String name, String nif, int pollingStation, String email) {
@@ -90,5 +93,12 @@ public class Voter {
 		return true;
 	}
 
+	public Voter findByNif(String nif){
+		return check.findByNif(nif);
+	}
+	
+	public List<Voter> findAll(){
+		return check.findAll();
+	}
 	
 }

@@ -18,6 +18,7 @@ import es.uniovi.asw.main.LoadUsers;
 import es.uniovi.asw.voter.Voter;
 
 
+@SuppressWarnings("unused")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = LoadUsers.class)
 public class DatabaseTest {
@@ -42,7 +43,7 @@ public class DatabaseTest {
 
 		assertEquals("Ana Martinez", ch.findByNif("123456789A").getName());
 		assertEquals("olgagar@gmail.com", ch.findByNif("456789123B").getEmail());
-		assertEquals(1 , ch.findByNif("789123456C").getPollingStation());
+		assertEquals((Integer) 1 , ch.findByNif("789123456C").getPollingStation());
 	
 	
 	}
@@ -71,7 +72,7 @@ public class DatabaseTest {
 
 		assertEquals("Antonio Alvarez", ch.findByNif("147258369A").getName());
 		assertEquals("marmar@gmail.com", ch.findByNif("258369147B").getEmail());
-		assertEquals(3, ch.findByNif("369147258C").getPollingStation());
+		assertEquals((Integer) 3, ch.findByNif("369147258C").getPollingStation());
 		assertEquals("Ursula Garcia", ch.findByNif("321654987D").getName());
 		assertEquals("adris@gmail.com", ch.findByNif("987654321E").getEmail());
 		

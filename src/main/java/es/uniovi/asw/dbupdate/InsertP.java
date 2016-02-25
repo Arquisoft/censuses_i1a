@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-import es.uniovi.asw.reportwriter.WriteReport;
+
 import es.uniovi.asw.voter.Voter;
 
 /**
@@ -15,15 +15,9 @@ import es.uniovi.asw.voter.Voter;
  */
 public class InsertP implements Insert {
 	
-	WriteReport report;
-	
-
-	public InsertP(WriteReport report) {
-		this.report = report;
-	}
+	private List<Voter> voters;
 	
 	public InsertP() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public boolean validateVoter(Voter voter) {
@@ -72,15 +66,16 @@ public class InsertP implements Insert {
 	}
 	
 	public List<Voter> getVoters(){
- 		return voters;
+ 		return this.voters;
  	}
 
 	@Override
 	public void insert(List<Voter> voters) {
 		for (Voter voter : voters) {
-						if(repository.findByNif(voter.getNif())==null){ 
-							repository.save(voter);
+						if(voter.findByNif(voter.getNif())==null){ 
+							insert(voter);
 						}
-	}
+		}
 
+	}
 }

@@ -1,12 +1,9 @@
 package es.uniovi.asw.main;
 
 import es.uniovi.asw.dbupdate.VoterCheck;
-import es.uniovi.asw.parser.ArgumentsParser;
-import es.uniovi.asw.parser.ReadCensus;
 import es.uniovi.asw.parser.reader.ExcelReader;
 import es.uniovi.asw.voter.Voter;
 
-import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -28,9 +25,8 @@ public class LoadUsers {
 		public CommandLineRunner demo(final VoterCheck voters) {
 			return (args) -> {
 				
-				ExcelReader reader = (ExcelReader)ParserFactory.getParserXlsx(repository);
-				reader.read("test.xlsx"); //lee el fichero en formato .xlsx
-				leerxlsx.process();			
+				ExcelReader reader = new ExcelReader();
+				reader.read("test.xlsx"); 
 				
 				log.info("Voters info: ");
 				for (Voter voter : voters.findAll()) {
