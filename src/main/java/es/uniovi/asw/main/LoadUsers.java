@@ -4,6 +4,8 @@ import es.uniovi.asw.dbupdate.VoterCheck;
 import es.uniovi.asw.parser.reader.ExcelReader;
 import es.uniovi.asw.voter.Voter;
 
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -22,7 +24,7 @@ public class LoadUsers {
 	}
 	
 	@Bean
-		public CommandLineRunner demo(final VoterCheck voters) {
+		public void demo(final VoterCheck voters) throws IOException {
 						
 				ExcelReader reader = new ExcelReader();
 				reader.read("test.xlsx"); 
