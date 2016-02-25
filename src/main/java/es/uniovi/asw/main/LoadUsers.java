@@ -23,8 +23,7 @@ public class LoadUsers {
 	
 	@Bean
 		public CommandLineRunner demo(final VoterCheck voters) {
-			return (args) -> {
-				
+						
 				ExcelReader reader = new ExcelReader();
 				reader.read("test.xlsx"); 
 				
@@ -32,7 +31,5 @@ public class LoadUsers {
 				for (Voter voter : voters.findAll()) {
 					log.info(voter.toString());
 				}
-			};
-			
 		}
 }
