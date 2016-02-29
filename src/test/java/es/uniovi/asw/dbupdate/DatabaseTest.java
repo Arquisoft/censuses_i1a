@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import es.uniovi.asw.dbupdate.VoterCheck;
+import es.uniovi.asw.dbupdate.VoterRepository;
 import es.uniovi.asw.main.LoadUsers;
 import es.uniovi.asw.voter.Voter;
 
@@ -24,7 +24,7 @@ import es.uniovi.asw.voter.Voter;
 public class DatabaseTest {
 
 	@Autowired
-	VoterCheck ch;
+	VoterRepository ch;
 	List<Voter> voters = new ArrayList<Voter>();
 	
 	@Before

@@ -10,7 +10,8 @@ import es.uniovi.asw.voter.Voter;
  *
  */
 public class InsertServices implements Insert {
-
+	
+	
 	@Override
 	public void insert(List<Voter> voters) {
 		InsertP.validateVoters(voters);

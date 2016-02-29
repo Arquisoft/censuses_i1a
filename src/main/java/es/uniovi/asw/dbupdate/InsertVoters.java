@@ -51,10 +51,15 @@ public class InsertVoters {
 	public void insert(List<Voter> voters) {
 		this.voters = voters;
 		for (Voter voter : voters) {
-						if(voter.findByNif(voter.getNif())==null){ 
+						if(findByNif(voter.getNif())==null){ 
 							insert(voter);
 						}
 		}
+	}
+
+	private Voter findByNif(String nif) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

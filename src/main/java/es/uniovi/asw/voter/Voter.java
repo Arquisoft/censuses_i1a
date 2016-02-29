@@ -1,35 +1,23 @@
 package es.uniovi.asw.voter;
-
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-import es.uniovi.asw.dbupdate.VoterCheck;
 /**
  * Class made to serve as object container to transport data from the parser to the database
  * @author UO238739
  *
  */
-@Entity
 public class Voter  {
-	
-	private VoterCheck check;
 
-	@Id
-	@GeneratedValue
 	private String nif;
-	
-	@Column(nullable = false)
 	private String name;
-	@Column
 	private Integer pollingStation;
-	@Column
 	private String email;
-	@Column
 	private String password;
+	
+	protected Voter(){}
+	
+	public Voter(String nif, String email){
+		this.nif = nif;
+		this.email = email;
+	}
 	
 	public Voter(String name, String nif, int pollingStation, String email) {
 		super();
@@ -93,12 +81,16 @@ public class Voter  {
 		return true;
 	}
 
-	public Voter findByNif(String nif){
-		return check.findByNif(nif);
+	public void setName(String name) {
+		this.name = name;
 	}
-	
-	public List<Voter> findAll(){
-		return check.findAll();
+
+	public void setPollingStation(Integer pollingStation) {
+		this.pollingStation = pollingStation;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 }
