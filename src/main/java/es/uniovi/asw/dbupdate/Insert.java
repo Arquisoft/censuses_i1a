@@ -10,8 +10,6 @@ import es.uniovi.asw.voter.Voter;
  */
 public interface Insert {
 	
-	public void insert(Voter voter);
-
 	public void insert(List<Voter> voters);
 	
 }

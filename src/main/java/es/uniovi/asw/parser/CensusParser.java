@@ -2,7 +2,7 @@ package es.uniovi.asw.parser;
 
 import java.util.List;
 import es.uniovi.asw.dbupdate.Insert;
-import es.uniovi.asw.dbupdate.InsertP;
+import es.uniovi.asw.dbupdate.InsertVoters;
 import es.uniovi.asw.parser.letters.LetterGenerator;
 import es.uniovi.asw.parser.letters.TxtLetter;
 import es.uniovi.asw.parser.reader.ExcelReader;
@@ -49,7 +49,7 @@ public class CensusParser {
 			}
 
 			// upload voters to the DB
-			Insert updateDb = new InsertP();
+			Insert updateDb = new InsertVoters();
 			updateDb.insert(voters);
 
 			// create letters
