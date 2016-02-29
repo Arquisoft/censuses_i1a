@@ -12,7 +12,7 @@ import es.uniovi.asw.voter.Voter;
  * @author UO238739
  *
  */
-public class InsertVoters implements Insert {
+public class InsertVoters {
 
 	private List<Voter> voters;
 	
@@ -48,10 +48,8 @@ public class InsertVoters implements Insert {
  		return this.voters;
  	}
 
-	@Override
 	public void insert(List<Voter> voters) {
 		this.voters = voters;
-		InsertP.validateVoters(voters);
 		for (Voter voter : voters) {
 						if(voter.findByNif(voter.getNif())==null){ 
 							insert(voter);
