@@ -13,19 +13,12 @@ import java.sql.Statement;
  */
 public class ConnectionManager {
 /**_________________________________________________________________________**/
-/*  Oracle 
-	private static String DRIVER = "oracle.jdbc.driver.OracleDriver";
-	private static String URL = "jdbc:oracle:thin:@156.35.94.99:1521:DESA";
-	private static String USER = "";
-	private static String PASS = "";
-*/
-/**_________________________________________________________________________**/
 /* 	Hsqldb
 */	
-	private static String DRIVER = "org.hsqldb.jdbcDriver";
-	private static String URL = "jdbc:hsqldb:hsql://localhost";
-	private static String USER = "sa";
-	private static String PASS = "";
+	private static final String DRIVER = "org.hsqldb.jdbcDriver";
+	private static final String URL = "jdbc:hsqldb:file:src/main/resources/db/db";
+	private static final String USER = "sa";
+	private static final String PASS = "";
 /**_________________________________________________________________________**/	
 	static {
 		try {
@@ -39,6 +32,10 @@ public class ConnectionManager {
 		return DriverManager.getConnection(URL, USER, PASS);
 	}
 
+	static Connection getConnection(String url) throws SQLException {
+		return DriverManager.getConnection(url, USER, PASS);
+	}
+	
 	public static void close(ResultSet rs, Statement st, Connection c) {
 		close(rs);
 		close(st);

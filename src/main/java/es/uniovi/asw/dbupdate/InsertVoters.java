@@ -21,8 +21,6 @@ public class InsertVoters {
 		Connection c;
 		try {
 			c = ConnectionManager.getConnection();
-			PreparedStatement createTable = c.prepareStatement("CREATE TABLE IF NOT EXISTS CENSOS (NOMBRE VARCHAR(250), NIF VARCHAR(9), EMAIL VARCHAR(250), CODCOLEGIOELECTORAL VARCHAR(3), PASSWORD VARCHAR(10), CONSTRAINT PK_NOMBRE PRIMARY KEY (NOMBRE), CONSTRAINT UQ_NIF UNIQUE (NIF))");
-			createTable.execute();
 			PreparedStatement ps = c.prepareStatement("INSERT INTO CENSOS "
 					+ "(NOMBRE, NIF, EMAIL, CODCOLEGIOELECTORAL, PASSWORD) VALUES(?, ?, ?, ?, ?)");
 			ps.setString(1, voter.getName());
@@ -65,13 +63,32 @@ public class InsertVoters {
 		}
 	}
 
-	public static boolean findByNif(String nif, Connection conn) throws SQLException{
+	/**
+	 * For testing purposes
+	 */
+	static boolean findByNif(String nif, Connection conn) throws SQLException{
 		try{
-		PreparedStatement ps = conn.prepareStatement("SELECT * FROM CENSOS WHERE NIF = " + nif);
-		ResultSet rs = null;
-        rs = ps.executeQuery();
-        if(rs!=null) return true;
-        else return false;
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM CENSOS WHERE NIF = ?");
+		ps.setString(1, nif);
+		ResultSet rs = ps.executeQuery();
+        return rs!=null;
+		}
+		catch (SQLException e){
+			e.printStackTrace();
+			return false;
+		}
+
+	}
+	
+	/**
+	 * For testing purposes
+	 */
+	static boolean delete(String nif, Connection conn) throws SQLException{
+		try{
+		PreparedStatement ps = conn.prepareStatement("DELETE FROM CENSOS WHERE NIF = ?");
+		ps.setString(1, nif);
+		boolean succes = ps.executeUpdate()>0;
+        return succes;
 		}
 		catch (SQLException e){
 			e.printStackTrace();

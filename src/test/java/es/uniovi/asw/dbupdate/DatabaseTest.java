@@ -2,42 +2,48 @@ package es.uniovi.asw.dbupdate;
 
 import static org.junit.Assert.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hsqldb.Database;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import es.uniovi.asw.voter.Voter;
-import es.uniovi.asw.dbupdate.*;
 
-public class DBTest {
+public class DatabaseTest {
 	
-	List<Voter> voters = new ArrayList<Voter>();
-	ConnectionManager c = new ConnectionManager();
+	private List<Voter> voters;
+	private Voter v1;
+	private Voter v2;
+	private Voter v3;
+	private static final String URL = "jdbc:hsqldb:file:src/test/resources/db/testdb";
 	
 	@Before
-	public void setUp() throws Exception {
-		voters = null;
-		voters.add(new Voter("Ana Martinez",  "123456789A", 1, "anamar@gmail.com", "ersdht"));
-		voters.add(new Voter("Olga Garcia", "456789123B", 2, "olgagar@gmail.com", "qgdt"));
-		voters.add(new Voter("Tomas Fernandez", "789123456C", 1, "tomasfer@gmail.com", "sthc"));
-		InsertVoters.insert(voters);
+	public void setUp() throws SQLException {
+		voters = new ArrayList<Voter>();
+		v1 = new Voter("Ana Martinez", "123456789A", 1, "anamar@gmail.com", "ersdht");
+		v2 = new Voter("Olga Garcia", "456789123B", 2, "olgagar@gmail.com", "qgdt");
+		v3 = new Voter("Tomas Fernandez", "789123456C", 1, "tomasfer@gmail.com", "sthc");
+		voters.add(v1);
+		voters.add(v2);
+		voters.add(v3);
+		emptyDatabase(); //delete voters from previously failed tests
 	}
 	
 	@Test
-	public void testFindByNif() {
-		try {
-			assertEquals(true, InsertVoters.findByNif("123456789A", c.getConnection()));
-			assertEquals(true, InsertVoters.findByNif("456789123B", c.getConnection()));
-		} catch (SQLException e) {
-			e.printStackTrace();
+	public void testInsert() throws SQLException {
+		InsertVoters.insert(voters);
+		for(Voter voter : voters){
+			assertTrue(InsertVoters.findByNif(voter.getNif(), ConnectionManager.getConnection(URL)));
 		}
-
 	}
 
+	@After
+	public void emptyDatabase() throws SQLException{
+		for(Voter voter : voters){
+			InsertVoters.delete(voter.getNif(), ConnectionManager.getConnection());
+		}
+	}
 }
