@@ -6,7 +6,7 @@ import es.uniovi.asw.parser.reader.*;
 
 /**
  * Class that reads from CMD.
- * It receives arguments to configure the file input and (in the future) output and their formats.
+ * It receives arguments to configure the file input and output and their formats.
  * It also creates the Parser component and passes the input file to it.
  * @author UO238739
  *

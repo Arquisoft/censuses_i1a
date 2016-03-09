@@ -43,7 +43,7 @@ public class DatabaseTest {
 	@After
 	public void emptyDatabase() throws SQLException{
 		for(Voter voter : voters){
-			InsertVoters.delete(voter.getNif(), ConnectionManager.getConnection());
+			InsertVoters.delete(voter.getNif(), ConnectionManager.getConnection(URL));
 		}
 	}
 }

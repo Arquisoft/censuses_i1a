@@ -16,7 +16,7 @@ public class ConnectionManager {
 /* 	Hsqldb
 */	
 	private static final String DRIVER = "org.hsqldb.jdbcDriver";
-	private static final String URL = "jdbc:hsqldb:file:src/main/resources/db/db";
+	private static String URL = "jdbc:hsqldb:file:src/main/resources/db/db";
 	private static final String USER = "sa";
 	private static final String PASS = "";
 /**_________________________________________________________________________**/	
@@ -32,7 +32,7 @@ public class ConnectionManager {
 		return DriverManager.getConnection(URL, USER, PASS);
 	}
 
-	static Connection getConnection(String url) throws SQLException {
+	public static Connection getConnection(String url) throws SQLException {
 		return DriverManager.getConnection(url, USER, PASS);
 	}
 	
@@ -70,6 +70,13 @@ public class ConnectionManager {
 
 	public static Connection getCurrentConnection() {
 		return threadConnection.get();
+	}
+
+	/*
+	 * For test purposes
+	 */
+	public static void setURL(String uRL) {
+		URL = uRL;
 	}
 
 }
